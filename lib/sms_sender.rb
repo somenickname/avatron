@@ -24,6 +24,7 @@ class SmsSender
       </message>
     </request>
     XML
+    puts xml
     # Create the HTTP objects
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = false
