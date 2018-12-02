@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   layout 'application'
-  skip_before_action :verify_authenticity_token
 
   def require_user
     redirect_to new_session_path unless current_user
