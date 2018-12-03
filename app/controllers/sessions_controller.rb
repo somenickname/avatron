@@ -7,7 +7,6 @@ class SessionsController < ApplicationController
     @user = User.joins(:phones).find_by(user_phones: { number: params[:number] })
     @user ||= User.create(user_params)
     if @user.valid?
-      # @user.md5_hash = Digest::MD5.hexdigest(params[:number])
       session[:phone] = @user.phones.first.number
     else
       render(:new)
