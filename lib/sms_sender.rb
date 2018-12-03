@@ -5,8 +5,9 @@ class SmsSender
     @login = login
     @password = password
   end
-  
+
   def send_sms
+    return unless Rails.env.production?
     uri = URI.parse('http://svitsms.com/api/api.php')
     phone = @recipient
     text = @text

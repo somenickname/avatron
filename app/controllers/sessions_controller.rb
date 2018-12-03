@@ -9,10 +9,8 @@ class SessionsController < ApplicationController
     @user ||= User.create(user_params)
     if @user.valid?
       session[:phone] = @user.phones.first.number
-      if Rails.env.production?
-        sms_sender = SmsSender.new(@user.phones.first.number, @user.phones.first.code,"380680435966", "nananabananananana")
-        sms_sender.send_sms
-      end
+      sms = SmsSender.new(@user.phones.first.number, @user.phones.first.code,"380680435966", "nananabananananana")
+      sms.send_sms
     else
       render(:new)
     end
