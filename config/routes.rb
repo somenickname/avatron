@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   resource :session
   root 'dashboards#show'
-  namespace :api, default: {format: :json} do ||
-    get '/avatar/:hash', to: 'api#show'
-  end
+  # namespace :api do ||
+  #   get 'avatar/:hash', to: 'api#get_avatar'
+  # end
+  # scope '/api' do
+  #   get '/avatar/:hash', to: 'api#get_avatar'
+  # end
+  get '/api/avatar/:hash', to: 'api#get_avatar'
 end
