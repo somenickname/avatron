@@ -1,4 +1,14 @@
 class SmsSender
+  XML_TEMPLATE = <<~XML
+  <?xml version="1.0" encoding="utf-8"?>
+  <request>
+    <operation>SENDSMS</operation>
+    <message start_time="AUTO" end_time="AUTO" lifetime="4" rate="120" desc="My first campaign " source="SMS">
+      <body>%s</body> 
+      <recipient>%s</recipient>
+    </message>
+  </request>
+  XML
   def initialize(recipient, text, login, password)
     @recipient = recipient
     @text = text
@@ -15,16 +25,7 @@ class SmsSender
     header = {
       'Content-Type': 'text/xml'      
     }
-    xml = <<~XML
-    <?xml version="1.0" encoding="utf-8"?>
-    <request>
-      <operation>SENDSMS</operation>
-      <message start_time="AUTO" end_time="AUTO" lifetime="4" rate="120" desc="My first campaign " source="SMS">
-        <body>#{text}</body> 
-        <recipient>#{phone}</recipient>
-      </message>
-    </request>
-    XML
+    xml = format(XML_TEMPLATE, text, phone)
     puts xml
     # Create the HTTP objects
     http = Net::HTTP.new(uri.host, uri.port)
