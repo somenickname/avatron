@@ -4,16 +4,14 @@ class SmsSender
   <request>
     <operation>SENDSMS</operation>
     <message start_time="AUTO" end_time="AUTO" lifetime="4" rate="120" desc="My first campaign " source="SMS">
-      <body>%s</body> 
+      <body>%s</body>
       <recipient>%s</recipient>
     </message>
   </request>
   XML
-  def initialize(recipient, text, login, password)
+  def initialize(recipient, text)
     @recipient = recipient
     @text = text
-    @login = login
-    @password = password
   end
 
   def send_sms
@@ -23,17 +21,19 @@ class SmsSender
     text = @text
 
     header = {
-      'Content-Type': 'text/xml'      
+      'Content-Type': 'text/xml'
     }
     xml = format(XML_TEMPLATE, text, phone)
     puts xml
     # Create the HTTP objects
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = false
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE  
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Post.new(uri.request_uri, header)
+    login = Rails.application.credentials.svitsms[:login]
+    password = Rails.application.credentials.svitsms[:password]
     request.body = xml
-    request.basic_auth @login, @password
+    request.basic_auth login, password
 
     #request.use_ssl = false
 

@@ -1,7 +1,7 @@
-class ApiController < ActionController::Base
+class Api::AvatarsController < ActionController::Base
   respond_to? :json
 
-  def get_avatar
+  def show
     user_phone = UserPhone.find_by(md5_hash: params[:hash])
     if user_phone
       render :json => {status: 200, data: user_phone}

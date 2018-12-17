@@ -1,1 +1,7 @@
 h1 Dashboard
+
+input#dropzone type=:file accept='image/*' name='file'
+ul data-images=true
+  - current_user.avatars.each do |ava|
+    li
+      img.avatar src=ava.url

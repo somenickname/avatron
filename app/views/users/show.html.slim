@@ -1,13 +1,12 @@
-h1 #{t(:profile_page)}
-br
-' Primary number:
-= @user.phones.first.number
-br
-- unless @user.phones.second.nil? 
-	' Secondary number:
-	=  @user.phones.second.number
-= render 'edit'
-br
+h1= t(:profile_page)
 
-= button_to t(:add_phone), '/profile/add_number'
-= button_to t(:remove_acc), '/profile', method: "delete", remote: true, data: {confirm: 'Are you sure?'}
+= render 'edit'
+
+ul#user_phones
+  = render partial: 'phone_numbers/phone_number', collection: @user.phones
+
+#user_phone_form
+button data-url=new_phone_number_path data-remote=true Add phone
+
+/ = button_to t(:add_phone), '/profile/add_number'
+/ = button_to t(:remove_acc), '/profile', method: "delete", remote: true, data: {confirm: 'Are you sure?'}
