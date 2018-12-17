@@ -5,14 +5,14 @@ class SessionsController < ApplicationController
   end
 
   def create
-    sms_login = Rails.application.credentials.svitsms[:login]
-    sms_password = Rails.application.credentials.svitsms[:password]
+    # sms_login = Rails.application.credentials.svitsms[:login]
+    # sms_password = Rails.application.credentials.svitsms[:password]
     @user = User.joins(:phones).find_by(user_phones: { number: params[:number] })
     @user ||= User.create(user_params)
     if @user.valid?
       session[:phone] = @user.phones.first.number
-      sms = SmsSender.new(@user.phones.first.number, @user.phones.first.code, sms_login, sms_password)
-      sms.send_sms
+      # sms = SmsSender.new(@user.phones.first.number, @user.phones.first.code, sms_login, sms_password)
+      # sms.send_sms
     else
       render(:new)
     end
