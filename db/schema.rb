@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 2018_12_17_175630) do
     t.bigint "user_id"
     t.string "number"
     t.string "code"
-    t.string "md5_hash"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_user_phones_on_user_id"
